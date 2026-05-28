@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonne Fête Maman ! ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="hearts-container" id="hearts-box"></div>
+
+    <header>
+        <h1>Bonne Fête Maman !</h1>
+        <p class="subtitle">Ce petit coin du web est 100% dédié à la meilleure maman du monde.</p>
+    </header>
+
+    <main>
+        <section class="card message-card">
+            <h2>Pour toi, avec tout mon amour...</h2>
+            <p>Chaque jour, j'ai de la chance de t'avoir à mes côtés. Merci pour ton soutien, ton sourire, tes conseils et tout l'amour que tu donnes sans compter. Ce petit site est une preuve que même la technologie ne peut pas mesurer tout l'amour que j'ai pour toi !</p>
+            <span class="heart-icon">❤️</span>
+        </section>
+
+        <section class="reasons-section">
+            <h2>Trois choses (parmi des millions) que j'aime chez toi :</h2>
+            
+            <div class="grid">
+                <div class="card reason-item">
+                    <h3>🌟 Ta bienveillance</h3>
+                    <p>Tu sais toujours trouver les mots justes pour me réconforter ou m'encourager, peu importe le moment.</p>
+                </div>
+                <div class="card reason-item">
+                    <h3>👩‍🍳 Tes super talents</h3>
+                    <p>Que ce soit pour cuisiner mes plats préférés ou pour gérer les situations du quotidien comme une cheffe.</p>
+                </div>
+                <div class="card reason-item">
+                    <h3>☀️ Ton sourire</h3>
+                    <p>Il illumine la maison et donne de l'énergie à tout le monde dès le matin.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Fait avec amour par ton enfant en 2026 ✨</p>
+    </footer>
+
+    <script>
+        function createHeart() {
+            const container = document.getElementById('hearts-box');
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerText = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.fontSize = Math.random() * 10 + 15 + 'px';
+            container.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        setInterval(createHeart, 400);
+    </script>
+</body>
+</html>
