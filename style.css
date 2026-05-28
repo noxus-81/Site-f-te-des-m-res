@@ -1,0 +1,124 @@
+/* Styles généraux et couleurs douces (rose/pastel) */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
+    color: #4a4a4a;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* En-tête */
+header {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+header h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4rem;
+    color: #fb6f92;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+}
+
+header .subtitle {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #ff8fab;
+}
+
+/* Conteneur principal */
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 80px 20px;
+}
+
+/* Style des jolies cartes */
+.card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(251, 111, 146, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Lettre d'amour principale */
+.message-card {
+    text-align: center;
+    margin-bottom: 50px;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.heart-icon {
+    display: inline-block;
+    font-size: 2rem;
+    margin-top: 15px;
+    animation: pulse 1.5s infinite;
+}
+
+/* Grille pour les 3 raisons */
+.reasons-section h2 {
+    text-align: center;
+    color: #fb6f92;
+    margin-bottom: 30px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.reason-item h3 {
+    color: #ff8fab;
+    margin-top: 0;
+}
+
+/* Pied de page */
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #ff8fab;
+    font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Animation de la pluie de cœurs */
+.hearts-container {
+    position: fixed;
+    top: -50px;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.heart-particle {
+    position: absolute;
+    animation: fall linear forwards;
+    opacity: 0.7;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(105vh);
+    }
+}
