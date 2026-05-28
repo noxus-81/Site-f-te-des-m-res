@@ -4,65 +4,791 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bonne Fête Maman ! ❤️</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Polices d'écriture élégantes -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
+            color: #4a4a4a;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            transition: background 1s ease;
+        }
+
+        /* En-tête du site */
+        header {
+            text-align: center;
+            padding: 40px 20px 20px 20px;
+        }
+
+        header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.8rem;
+            color: #fb6f92;
+            margin: 0 0 10px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        header .subtitle {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #ff8fab;
+            margin: 0;
+        }
+
+        /* Barre d'onglets (Navigation) */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            padding: 0 10px;
+        }
+
+        .tab-button {
+            background-color: rgba(255, 255, 255, 0.7);
+            border: 2px solid #ff8fab;
+            color: #fb6f92;
+            padding: 10px 22px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 10px rgba(251, 111, 146, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-button:hover {
+            background-color: #ff8fab;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .tab-button.active {
+            background-color: #fb6f92;
+            color: white;
+            border-color: #fb6f92;
+            box-shadow: 0 4px 15px rgba(251, 111, 146, 0.3);
+        }
+
+        /* Contenu des onglets */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Conteneur principal */
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px 80px 20px;
+        }
+
+        /* Style des jolies cartes en verre */
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(251, 111, 146, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Onglet 1 : Lettre d'amour principale */
+        .message-card {
+            text-align: center;
+            margin-bottom: 50px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .heart-icon {
+            display: inline-block;
+            font-size: 2rem;
+            margin-top: 15px;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Grille pour les 3 raisons d'aimer */
+        .reasons-section h2 {
+            text-align: center;
+            color: #fb6f92;
+            margin-bottom: 30px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .reason-item h3 {
+            color: #ff8fab;
+            margin-top: 0;
+        }
+
+        /* Onglet 2 : Le jeu des 5 cartes interactives */
+        .cards-instructions {
+            text-align: center;
+            color: #fb6f92;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            padding: 10px;
+        }
+
+        /* Conteneur de la carte 3D */
+        .flip-card {
+            background-color: transparent;
+            width: 170px;
+            height: 250px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            box-shadow: 0 8px 20px rgba(251, 111, 146, 0.15);
+            border-radius: 15px;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        /* Face avant */
+        .flip-card-front {
+            background: linear-gradient(135deg, #ff8fab, #fb6f92);
+            color: white;
+            border: 4px solid #fff;
+        }
+
+        .card-pattern {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .card-number {
+            font-size: 1.1rem;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 15px;
+            letter-spacing: 1px;
+        }
+
+        /* Face arrière */
+        .flip-card-back {
+            background-color: white;
+            color: #4a4a4a;
+            transform: rotateY(180deg);
+            border: 3px solid #ff8fab;
+        }
+
+        .flip-card-back h3 {
+            font-size: 1.2rem;
+            color: #fb6f92;
+            margin: 0 0 10px 0;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+        }
+
+        .flip-card-back p {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .flip-card-back .icon-badge {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #ff8fab;
+        }
+
+        /* Onglet 3 : Zone Diplôme Canva */
+        .diploma-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Cadre Doré Réaliste */
+        .diploma-frame {
+            background: #fff;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 
+                0 20px 50px rgba(0,0,0,0.15),
+                0 0 0 12px #d4af37, /* Bordure dorée primaire */
+                0 0 0 16px #9a7b1c, /* Ombre dorée foncée */
+                0 0 0 20px #fff;    /* Contour externe blanc */
+            width: 100%;
+            max-width: 680px;
+            aspect-ratio: 1.414 / 1; /* Ratio officiel d'un diplôme A4 paysage */
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .diploma-frame:hover {
+            transform: scale(1.02) rotate(0.5deg);
+        }
+
+        /* Image chargée depuis Canva */
+        .canva-diploma-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            border-radius: 4px;
+        }
+
+        /* Diplôme de secours en CSS élégant (si l'image n'est pas encore ajoutée par l'utilisateur) */
+        .fallback-diploma {
+            width: 100%;
+            height: 100%;
+            border: 4px double #d4af37;
+            padding: 30px;
+            background-color: #fdfbf7;
+            background-image: radial-gradient(#f7f3e9 1px, transparent 1px);
+            background-size: 20px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            color: #2c2c2c;
+        }
+
+        .fallback-header {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #9a7b1c;
+            margin: 0;
+        }
+
+        .fallback-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.2rem;
+            color: #b8860b;
+            margin: 10px 0;
+            line-height: 1;
+        }
+
+        .fallback-recipient {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 5px;
+            min-width: 250px;
+            margin: 10px auto;
+            color: #333;
+        }
+
+        .fallback-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1rem;
+            line-height: 1.5;
+            max-width: 500px;
+            margin: 5px auto;
+            color: #555;
+        }
+
+        /* Sceau doré officiel */
+        .gold-seal {
+            position: absolute;
+            bottom: 25px;
+            right: 40px;
+            width: 70px;
+            height: 70px;
+            background: #d4af37;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.8rem;
+            border: 3px dashed #fff;
+            animation: pulse 2s infinite;
+        }
+
+        .gold-seal::after {
+            content: '';
+            position: absolute;
+            top: 55px;
+            left: 15px;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 30px solid #d4af37;
+            z-index: -1;
+        }
+
+        .gold-seal::before {
+            content: '';
+            position: absolute;
+            top: 55px;
+            left: 35px;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 30px solid #d4af37;
+            z-index: -1;
+            transform: rotate(-10deg);
+        }
+
+        /* Instructions d'aide pour l'utilisateur */
+        .diploma-tips {
+            background: rgba(255, 255, 255, 0.9);
+            border-left: 4px solid #d4af37;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            max-width: 600px;
+            line-height: 1.5;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .diploma-tips i {
+            color: #d4af37;
+            margin-right: 5px;
+        }
+
+        /* Bouton d'action */
+        .action-btn {
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(184, 134, 11, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(184, 134, 11, 0.45);
+        }
+
+        /* Décors & Pied de page */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #ff8fab;
+            font-size: 0.9rem;
+        }
+
+        /* Animation pulsation du cœur */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Animation de flottement */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Pluie de particules (cœurs / étoiles) */
+        .hearts-container {
+            position: fixed;
+            top: -50px;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            animation: fall linear forwards;
+            opacity: 0.65;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+            }
+        }
+    </style>
 </head>
 <body>
 
+    <!-- Conteneur pour la pluie de cœurs et d'étoiles -->
     <div class="hearts-container" id="hearts-box"></div>
 
     <header>
         <h1>Bonne Fête Maman !</h1>
-        <p class="subtitle">Ce petit coin du web est 100% dédié à la meilleure maman du monde.</p>
+        <p class="subtitle">Un site magique créé spécialement pour toi ❤️</p>
     </header>
 
-    <main>
-        <section class="card message-card">
-            <h2>Pour toi, avec tout mon amour...</h2>
-            <p>Chaque jour, j'ai de la chance de t'avoir à mes côtés. Merci pour ton soutien, ton sourire, tes conseils et tout l'amour que tu donnes sans compter. Ce petit site est une preuve que même la technologie ne peut pas mesurer tout l'amour que j'ai pour toi !</p>
-            <span class="heart-icon">❤️</span>
-        </section>
+    <!-- Barre d'onglets pour naviguer -->
+    <div class="nav-tabs">
+        <button class="tab-button active" onclick="switchTab('accueil')">
+            <i class="fa-solid fa-heart"></i> Message d'amour
+        </button>
+        <button class="tab-button" onclick="switchTab('cartes')">
+            <i class="fa-solid fa-gift"></i> Mes 5 Cartes Surprises
+        </button>
+        <button class="tab-button" onclick="switchTab('diplome')">
+            <i class="fa-solid fa-award"></i> Ton diplôme
+        </button>
+    </div>
 
-        <section class="reasons-section">
-            <h2>Trois choses (parmi des millions) que j'aime chez toi :</h2>
-            
-            <div class="grid">
-                <div class="card reason-item">
-                    <h3>🌟 Ta bienveillance</h3>
-                    <p>Tu sais toujours trouver les mots justes pour me réconforter ou m'encourager, peu importe le moment.</p>
+    <main>
+        
+        <!-- ==========================================
+             ONGLET 1 : L'ACCUEIL (LETTRE D'AMOUR)
+             ========================================== -->
+        <div id="tab-accueil" class="tab-content active">
+            <!-- Section Message principal -->
+            <section class="card message-card">
+                <h2>Pour toi, avec tout mon amour...</h2>
+                <p>Chaque jour, j'ai de la chance de t'avoir à mes côtés. Merci pour ton soutien, ton sourire, tes conseils et tout l'amour que tu donnes sans compter. Ce petit site est une preuve que même la technologie ne peut pas mesurer tout l'amour que j'ai pour toi !</p>
+                <span class="heart-icon">❤️</span>
+            </section>
+
+            <!-- Section Les raisons de t'aimer -->
+            <section class="reasons-section">
+                <h2>Trois choses (parmi des millions) que j'aime chez toi :</h2>
+                
+                <div class="grid">
+                    <div class="card reason-item">
+                        <h3>🌟 Ta bienveillance</h3>
+                        <p>Tu sais toujours trouver les mots justes pour me réconforter ou m'encourager, peu importe le moment.</p>
+                    </div>
+                    <div class="card reason-item">
+                        <h3>👩‍🍳 Tes super talents</h3>
+                        <p>Que ce soit pour cuisiner mes plats préférés ou pour gérer les situations du quotidien comme une cheffe.</p>
+                    </div>
+                    <div class="card reason-item">
+                        <h3>☀️ Ton sourire</h3>
+                        <p>Il illumine la maison et donne de l'énergie à tout le monde dès le matin.</p>
+                    </div>
                 </div>
-                <div class="card reason-item">
-                    <h3>👩‍🍳 Tes super talents</h3>
-                    <p>Que ce soit pour cuisiner mes plats préférés ou pour gérer les situations du quotidien comme une cheffe.</p>
+            </section>
+        </div>
+
+        <!-- ==========================================
+             ONGLET 2 : LE JEU DES 5 CARTES FLIP
+             ========================================== -->
+        <div id="tab-cartes" class="tab-content">
+            <p class="cards-instructions">
+                <i class="fa-solid fa-hand-pointer"></i> Clique sur chaque carte pour la retourner et découvrir une de tes merveilleuses qualités !
+            </p>
+
+            <div class="cards-container">
+                
+                <!-- CARTE 1 -->
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-pattern">🎁</div>
+                            <div class="card-number">CARTE 1</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="icon-badge">✨</div>
+                            <h3>Généreuse</h3>
+                            <p>Tu penses toujours aux autres avant toi et tu donnes sans jamais rien attendre en retour.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="card reason-item">
-                    <h3>☀️ Ton sourire</h3>
-                    <p>Il illumine la maison et donne de l'énergie à tout le monde dès le matin.</p>
+
+                <!-- CARTE 2 -->
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-pattern">🌸</div>
+                            <div class="card-number">CARTE 2</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="icon-badge">🧘‍♀️</div>
+                            <h3>Patiente</h3>
+                            <p>Merci de m'écouter, de me conseiller et de supporter mes petits caprices avec tant de douceur.</p>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- CARTE 3 -->
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-pattern">⭐</div>
+                            <div class="card-number">CARTE 3</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="icon-badge">⚡</div>
+                            <h3>Courageuse</h3>
+                            <p>Une vraie super-héroïne du quotidien. Rien ne t'arrête quand il s'agit de protéger notre famille.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARTE 4 -->
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-pattern">☀️</div>
+                            <div class="card-number">CARTE 4</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="icon-badge">😊</div>
+                            <h3>Rayonnante</h3>
+                            <p>Ton rire et ta joie de vivre sont communicatifs. Tu apportes de la lumière partout où tu vas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARTE 5 -->
+                <div class="flip-card" onclick="flipCard(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-pattern">💖</div>
+                            <div class="card-number">CARTE 5</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="icon-badge">🦉</div>
+                            <h3>Avisée</h3>
+                            <p>Tu as toujours les meilleurs conseils du monde. Ta sagesse me guide et me rassure chaque jour.</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </section>
+        </div>
+
+        <!-- ==========================================
+             ONGLET 3 : LE DIPLÔME CANVA
+             ========================================== -->
+        <div id="tab-diplome" class="tab-content">
+            <div class="diploma-wrapper">
+                
+                <!-- Cadre Photo / Diplôme Étoilé -->
+                <div class="diploma-frame">
+                    <!-- Image Canva principale (sera affichée si elle existe) -->
+                    <img src="diplome.png" 
+                         alt="Diplôme de la meilleure maman" 
+                         class="canva-diploma-img" 
+                         id="diploma-img"
+                         onerror="handleImageError()">
+
+                    <!-- Diplôme alternatif de secours tout mignon en CSS -->
+                    <div class="fallback-diploma" id="fallback-diploma" style="display: none;">
+                        <div class="fallback-header">République du Bonheur</div>
+                        
+                        <div class="fallback-title">Diplôme National</div>
+                        <div style="font-family: 'Playfair Display', serif; font-size: 0.9rem; letter-spacing: 1px;">de la</div>
+                        <div style="font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: bold; color: #b8860b; margin-top: 5px;">Meilleure Maman du Monde</div>
+                        
+                        <div class="fallback-recipient">Décerné à ma Maman chérie</div>
+                        
+                        <p class="fallback-text">
+                            Pour sa bienveillance sans limites, son soutien éternel, ses repas incomparables et ses bisous magiques qui guérissent tous les maux.
+                        </p>
+                        
+                        <div style="font-family: 'Dancing Script', cursive; font-size: 1.3rem; margin-top: 10px; color: #ff8fab;">
+                            Avec tout mon amour pour toujours ❤️
+                        </div>
+
+                        <!-- Sceau Doré -->
+                        <div class="gold-seal">
+                            🏅
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bouton d'action interactif -->
+                <button class="action-btn" onclick="triggerGrandFinale()">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Lancer les confettis !
+                </button>
+                
+            </div>
+        </div>
+
     </main>
 
     <footer>
-        <p>Fait avec amour par ton enfant en 2026 ✨</p>
+        <p>Créé avec tout mon cœur pour la plus formidable des mamans ✨</p>
     </footer>
 
+    <!-- ==========================================
+         SCRIPTS JAVASCRIPT DIRECTEMENT INTÉGRÉS
+         ========================================== -->
     <script>
-        function createHeart() {
-            const container = document.getElementById('hearts-box');
-            const heart = document.createElement('div');
-            heart.classList.add('heart-particle');
-            heart.innerText = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
-            heart.style.fontSize = Math.random() * 10 + 15 + 'px';
-            container.appendChild(heart);
+        // Permet de suivre le type de particules (cœurs ou étoiles)
+        let activeTab = 'accueil';
 
+        // 1. Fonction pour changer d'onglet
+        function switchTab(tabName) {
+            activeTab = tabName;
+            
+            // Cacher tous les onglets
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Désactiver tous les boutons d'onglets
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            // Activer l'onglet choisi
+            document.getElementById('tab-' + tabName).classList.add('active');
+            
+            // Chercher le bouton sur lequel on a cliqué pour lui mettre la classe "active"
+            const clickedBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(tabName));
+            if (clickedBtn) {
+                clickedBtn.classList.add('active');
+            }
+
+            // Changements d'ambiance selon l'onglet
+            if (tabName === 'diplome') {
+                // Fond légèrement plus festif et doré
+                document.body.style.background = "linear-gradient(135deg, #fdf6e2, #ffccd5)";
+                // Lance une grande fête d'étoiles dorées dès l'ouverture
+                triggerGrandFinale();
+            } else if (tabName === 'cartes') {
+                document.body.style.background = "linear-gradient(135deg, #ffe5ec, #ffc2d1)";
+            } else {
+                document.body.style.background = "linear-gradient(135deg, #ffe5ec, #ffc2d1)";
+            }
+        }
+
+        // 2. Gestion de l'erreur si l'image "diplome.png" est absente
+        function handleImageError() {
+            // Masque l'image manquante et affiche le magnifique diplôme générique en CSS
+            document.getElementById('diploma-img').style.display = 'none';
+            document.getElementById('fallback-diploma').style.display = 'flex';
+        }
+
+        // 3. Fonction pour retourner une carte flip
+        function flipCard(cardElement) {
+            cardElement.classList.toggle('flipped');
+        }
+
+        // 4. Générateur de particules (Cœurs et Étoiles dorées)
+        function createParticle(symbol, customClass) {
+            const container = document.getElementById('hearts-box');
+            if (!container) return;
+            
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            if (customClass) particle.classList.add(customClass);
+            
+            particle.innerText = symbol;
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.animationDuration = Math.random() * 3 + 2 + 's';
+            particle.style.fontSize = Math.random() * 15 + 15 + 'px';
+            
+            // Légère rotation aléatoire au départ
+            particle.style.transform = `rotate(${Math.random() * 360}deg)`;
+            
+            container.appendChild(particle);
+
+            // Supprimer la particule après la fin de sa chute
             setTimeout(() => {
-                heart.remove();
+                particle.remove();
             }, 5000);
         }
-        setInterval(createHeart, 400);
+
+        // Lance la création continue de cœurs ou d'étoiles selon l'onglet
+        setInterval(() => {
+            if (activeTab === 'diplome') {
+                const goldSymbols = ['⭐', '✨', '💛', '🌟', '🎉'];
+                const randomSymbol = goldSymbols[Math.floor(Math.random() * goldSymbols.length)];
+                createParticle(randomSymbol);
+            } else {
+                createParticle('❤️');
+            }
+        }, 400);
+
+        // 5. La Grande Finale de confettis/étoiles
+        function triggerGrandFinale() {
+            const goldSymbols = ['⭐', '✨', '💛', '🌟', '🎉', '👑'];
+            // Génère instantanément 40 particules dorées pour un effet festif et magique !
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => {
+                    const randomSymbol = goldSymbols[Math.floor(Math.random() * goldSymbols.length)];
+                    createParticle(randomSymbol);
+                }, i * 60);
+            }
+        }
     </script>
 </body>
 </html>
+```
+eof
