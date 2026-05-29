@@ -511,26 +511,104 @@
             font-weight: bold;
         }
 
-        /* Bouton d'action */
-        .action-btn {
-            background: linear-gradient(135deg, #d4af37, #b8860b);
-            border: none;
-            color: white;
-            padding: 12px 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(184, 134, 11, 0.3);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        /* Onglet 5 : Bons Cadeaux */
+        .coupons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 10px;
         }
 
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(184, 134, 11, 0.45);
+        .coupon-card {
+            background: #ffffff;
+            border: 3px dashed #ff8fab;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(251, 111, 146, 0.08);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        /* Effet "trou de ticket de cinéma" sur les côtés */
+        .coupon-card::before, .coupon-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: #ffccd5; /* Même couleur que le fond */
+            border-radius: 50%;
+            transform: translateY(-50%);
+            transition: background 1s ease;
+        }
+
+        .coupon-card::before { left: -11px; border-right: 3px dashed #ff8fab; }
+        .coupon-card::after { right: -11px; border-left: 3px dashed #ff8fab; }
+
+        .coupon-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .coupon-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: #fb6f92;
+            margin: 0 0 10px 0;
+            font-size: 1.25rem;
+        }
+
+        .coupon-card p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0 0 20px 0;
+            line-height: 1.4;
+        }
+
+        /* Bouton d'utilisation du bon */
+        .coupon-btn {
+            background-color: #ffe5ec;
+            border: 2px solid #ff8fab;
+            color: #fb6f92;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 80%;
+        }
+
+        .coupon-btn:hover {
+            background-color: #fb6f92;
+            color: white;
+            border-color: #fb6f92;
+        }
+
+        /* Style une fois le bon validé */
+        .coupon-card.used {
+            background-color: #fff0f3;
+            border-color: #d4af37;
+            opacity: 0.9;
+            transform: scale(0.97);
+        }
+
+        .coupon-card.used::before { border-right-color: #d4af37; }
+        .coupon-card.used::after { border-left-color: #d4af37; }
+
+        .coupon-card.used h3 {
+            color: #b8860b;
+            text-decoration: line-through;
+        }
+
+        .coupon-card.used .coupon-btn {
+            background: #d4af37;
+            border-color: #d4af37;
+            color: white;
+            cursor: default;
         }
 
         /* Décors & Pied de page */
@@ -600,6 +678,9 @@
         <button class="tab-button" onclick="switchTab('diplome')">
             <i class="fa-solid fa-award"></i> Ton diplôme
         </button>
+        <button class="tab-button" onclick="switchTab('bons')">
+            <i class="fa-solid fa-ticket"></i> Bons Cadeaux
+        </button>
         <button class="tab-button" onclick="switchTab('cadeau')">
             <i class="fa-solid fa-wand-magic-sparkles"></i> Ton Cadeau !
         </button>
@@ -618,7 +699,7 @@
                 <span class="heart-icon">❤️</span>
             </section>
 
-            <!-- Section Des raisons de t'aimer -->
+            <!-- Section Les raisons de t'aimer -->
             <section class="reasons-section">
                 <h2>Trois choses (parmi des millions) que j'aime chez toi :</h2>
                 
@@ -657,9 +738,9 @@
                             <div class="card-number">CARTE 1</div>
                         </div>
                         <div class="flip-card-back">
-                            <div class="icon-badge">✨</div>
+                            <span class="icon-badge">✨</span>
                             <h3>Généreuse</h3>
-                            <p>Tu penses toujours aux autres avant toi et tu donnes sans jamais rien attendre en retour.</p>
+                            <p>Tu donnes toujours sans rien attendre en retour, ton cœur est immense.</p>
                         </div>
                     </div>
                 </div>
@@ -672,9 +753,9 @@
                             <div class="card-number">CARTE 2</div>
                         </div>
                         <div class="flip-card-back">
-                            <div class="icon-badge">🧘‍♀️</div>
+                            <span class="icon-badge">🧸</span>
                             <h3>Patiente</h3>
-                            <p>Merci de m'écouter, de me conseiller et de supporter mes petits caprices avec tant de douceur.</p>
+                            <p>Tu prends le temps de m'écouter et de me comprendre, même quand c'est difficile.</p>
                         </div>
                     </div>
                 </div>
@@ -687,9 +768,9 @@
                             <div class="card-number">CARTE 3</div>
                         </div>
                         <div class="flip-card-back">
-                            <div class="icon-badge">⚡</div>
-                            <h3>Courageuse</h3>
-                            <p>Une vraie super-héroïne du quotidien. Rien ne t'arrête quand il s'agit de protéger notre famille.</p>
+                            <span class="icon-badge">🎨</span>
+                            <h3>Inspirante</h3>
+                            <p>Ton parcours, ta force et ta joie de vivre me donnent envie de me dépasser chaque jour.</p>
                         </div>
                     </div>
                 </div>
@@ -698,13 +779,13 @@
                 <div class="flip-card" onclick="flipCard(this)">
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
-                            <div class="card-pattern">☀️</div>
+                            <div class="card-pattern">🌈</div>
                             <div class="card-number">CARTE 4</div>
                         </div>
                         <div class="flip-card-back">
-                            <div class="icon-badge">😊</div>
-                            <h3>Rayonnante</h3>
-                            <p>Ton rire et ta joie de vivre sont communicatifs. Tu apportes de la lumière partout où tu vas.</p>
+                            <span class="icon-badge">☀️</span>
+                            <h3>Souriante</h3>
+                            <p>Ton sourire a le pouvoir magique de rendre les journées pluvieuses merveilleuses.</p>
                         </div>
                     </div>
                 </div>
@@ -713,13 +794,13 @@
                 <div class="flip-card" onclick="flipCard(this)">
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
-                            <div class="card-pattern">💖</div>
+                            <div class="card-pattern">👑</div>
                             <div class="card-number">CARTE 5</div>
                         </div>
                         <div class="flip-card-back">
-                            <div class="icon-badge">🦉</div>
-                            <h3>Avisée</h3>
-                            <p>Tu as toujours les meilleurs conseils du monde. Ta sagesse me guide et me rassure chaque jour.</p>
+                            <span class="icon-badge">❤️</span>
+                            <h3>Unique</h3>
+                            <p>Il y a des milliards de personnes sur Terre, mais la meilleure maman c'est toi.</p>
                         </div>
                     </div>
                 </div>
@@ -728,227 +809,203 @@
         </div>
 
         <!-- ==========================================
-             ONGLET 3 : LE DIPLÔME CANVA
+             ONGLET 3 : LE DIPLÔME DE SUPER MAMAN
              ========================================== -->
         <div id="tab-diplome" class="tab-content">
             <div class="diploma-wrapper">
                 
-                <!-- Cadre Photo / Diplôme Étoilé -->
+                <!-- Cadre Photo Élégant -->
                 <div class="diploma-frame">
-                    <!-- Image Canva principale (sera affichée si elle existe) -->
-                    <img src="diplome.png" 
-                         alt="Diplôme de la meilleure maman" 
-                         class="canva-diploma-img" 
-                         id="diploma-img"
-                         onerror="handleImageError()">
-
-                    <!-- Diplôme alternatif de secours tout mignon en CSS -->
-                    <div class="fallback-diploma" id="fallback-diploma" style="display: none;">
-                        <div class="fallback-header">République du Bonheur</div>
-                        
-                        <div class="fallback-title">Diplôme National</div>
-                        <div style="font-family: 'Playfair Display', serif; font-size: 0.9rem; letter-spacing: 1px;">de la</div>
-                        <div style="font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: bold; color: #b8860b; margin-top: 5px;">Meilleure Maman du Monde</div>
-                        
-                        <div class="fallback-recipient">Décerné à ma Maman chérie</div>
-                        
-                        <p class="fallback-text">
-                            Pour sa bienveillance sans limites, son soutien éternel, ses repas incomparables et ses bisous magiques qui guérissent tous les maux.
-                        </p>
-                        
-                        <div style="font-family: 'Dancing Script', cursive; font-size: 1.3rem; margin-top: 10px; color: #ff8fab;">
-                            Avec tout mon amour pour toujours ❤️
-                        </div>
-
-                        <!-- Sceau Doré -->
-                        <div class="gold-seal">
-                            🏅
-                        </div>
+                    <!-- Image Canva par défaut -->
+                    <img class="canva-diploma-img" src="diplome.png" alt="Mon Diplôme Canva" onerror="this.style.display='none'; document.getElementById('fallback-diplome').style.display='flex';">
+                    
+                    <!-- Diplôme de secours si l'image n'existe pas ou n'est pas encore téléchargée -->
+                    <div id="fallback-diploma" class="fallback-diploma">
+                        <div class="fallback-header">Diplôme Officiel</div>
+                        <div class="fallback-title">Super Maman du Monde</div>
+                        <p class="fallback-text">Décerné avec tout l'amour et l'admiration du monde pour sa patience infinie, ses câlins réconfortants et ses super-pouvoirs du quotidien.</p>
+                        <div class="fallback-recipient">À ma Maman Chérie</div>
+                        <div class="gold-seal">🏆</div>
                     </div>
                 </div>
 
-                <!-- Bouton d'action interactif -->
-                <button class="action-btn" onclick="triggerGrandFinale()">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> Lancer les confettis !
-                </button>
-                
             </div>
         </div>
 
         <!-- ==========================================
-             ONGLET 4 : LE CADEAU À RETOURNER
+             ONGLET 4 : LES BONS CADEAUX
+             ========================================== -->
+        <div id="tab-bons" class="tab-content">
+            <div class="coupons-grid">
+                <!-- BON 1 -->
+                <div class="coupon-card">
+                    <span class="coupon-emoji">☕</span>
+                    <h3>Petit-déjeuner au lit</h3>
+                    <p>Valable pour un service 5 étoiles au réveil, avec croissants frais et boisson chaude de ton choix.</p>
+                    <button class="coupon-btn" onclick="useCoupon(this)">Utiliser ce bon</button>
+                </div>
+
+                <!-- BON 2 -->
+                <div class="coupon-card">
+                    <span class="coupon-emoji">🎬</span>
+                    <h3>Soirée Cinéma VIP</h3>
+                    <p>C'est toi qui décides du film, de l'heure et qui as le contrôle exclusif de la télécommande !</p>
+                    <button class="coupon-btn" onclick="useCoupon(this)">Utiliser ce bon</button>
+                </div>
+
+                <!-- BON 3 -->
+                <div class="coupon-card">
+                    <span class="coupon-emoji">🧹</span>
+                    <h3>Joker "Zéro Corvée"</h3>
+                    <p>Donne ce bon pour être totalement exemptée d'une corvée ménagère aujourd'hui. Je m'en occupe !</p>
+                    <button class="coupon-btn" onclick="useCoupon(this)">Utiliser ce bon</button>
+                </div>
+
+                <!-- BON 4 -->
+                <div class="coupon-card">
+                    <span class="coupon-emoji">🤗</span>
+                    <h3>Câlin de secours géant</h3>
+                    <p>Valable pour un câlin ultra-réconfortant, à utiliser sans modération en cas de coup de fatigue.</p>
+                    <button class="coupon-btn" onclick="useCoupon(this)">Utiliser ce bon</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             ONGLET 5 : LE CADEAU À RETOURNER
              ========================================== -->
         <div id="tab-cadeau" class="tab-content">
-            <p class="cards-instructions">
-                <i class="fa-solid fa-gift"></i> Clique sur la grosse boîte cadeau ci-dessous pour l'ouvrir et découvrir ta surprise !
-            </p>
-
             <div class="gift-container">
-                <div class="big-flip-card" onclick="flipGiftCard(this)">
+                
+                <div class="big-flip-card" onclick="flipBigCard(this)">
                     <div class="big-flip-card-inner">
-                        
-                        <!-- Devant de la grosse carte -->
+                        <!-- Face avant : Boîte cadeau -->
                         <div class="big-card-front">
                             <div class="gift-box-icon">🎁</div>
-                            <h2>Pour ma maman chérie...</h2>
-                            <p>Clique pour l'ouvrir ! ✨</p>
+                            <h2>Ton Cadeau !</h2>
+                            <p>Clique pour l'ouvrir...</p>
                         </div>
-
-                        <!-- Derrière de la grosse carte (Contient l'image de ton choix !) -->
+                        <!-- Face arrière : Image personnalisée du cadeau -->
                         <div class="big-card-back">
                             <div class="gift-img-frame">
-                                
-                                <img src="cadeau.jpg" 
-                                     alt="Ton cadeau de fête des mères" 
-                                     class="actual-gift-img"
-                                     id="gift-img"
-                                     onerror="handleGiftImageError()">
+                                <!-- Tu pourras remplacer "cadeau.jpg" ci-dessous par l'adresse de ton image -->
+                                <img class="actual-gift-img" src="https://www.theatredesevades.fr/wp-content/uploads/2023/11/Portail_Francophone.png" alt="Ton Cadeau !" onerror="this.src='https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1000&auto=format&fit=crop';">
                             </div>
-                            <div class="gift-caption">
-                                Surprise ! ❤️
-                            </div>
+                            <p class="gift-caption">Joyeuse Fête des Mères ! ❤️</p>
                         </div>
-
                     </div>
                 </div>
+
             </div>
         </div>
 
     </main>
 
     <footer>
-        <p>Créé avec tout mon cœur pour la plus formidable des mamans ✨</p>
+        <p>Fait avec amour par ton fils qui t'aime en 2026 ✨</p>
     </footer>
 
-    <!-- ==========================================
-         SCRIPTS JAVASCRIPT DIRECTEMENT INTÉGRÉS
-         ========================================== -->
+    <!-- Scripts pour l'interactivité -->
     <script>
-        // Permet de suivre le type de particules (cœurs ou étoiles)
-        let activeTab = 'accueil';
-
-        // 1. Fonction pour changer d'onglet
+        // Système d'onglets
         function switchTab(tabName) {
-            activeTab = tabName;
-            
-            // Cacher tous les onglets
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => content.classList.remove('active'));
+            // Désactiver tous les onglets (boutons et contenus)
+            const allTabs = document.querySelectorAll('.tab-content');
+            const allButtons = document.querySelectorAll('.tab-button');
 
-            // Désactiver tous les boutons d'onglets
-            const buttons = document.querySelectorAll('.tab-button');
-            buttons.forEach(button => button.classList.remove('active'));
+            allTabs.forEach(tab => tab.classList.remove('active'));
+            allButtons.forEach(btn => btn.classList.remove('active'));
 
-            // Activer l'onglet choisi
+            // Activer le bon onglet
             document.getElementById('tab-' + tabName).classList.add('active');
             
-            // Chercher le bouton sur lequel on a cliqué pour lui mettre la classe "active"
-            const clickedBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(tabName));
-            if (clickedBtn) {
-                clickedBtn.classList.add('active');
-            }
+            // Retrouver le bouton cliqué pour l'activer
+            event.currentTarget.classList.add('active');
 
-            // Changements d'ambiance selon l'onglet
+            // Pluie de paillettes dorées si l'onglet Diplôme, Cadeau ou Bons est cliqué
             if (tabName === 'diplome') {
-                // Fond légèrement plus festif et doré
-                document.body.style.background = "linear-gradient(135deg, #fdf6e2, #ffccd5)";
-                // Lance une grande fête d'étoiles dorées dès l'ouverture
-                triggerGrandFinale();
+                triggerShower(['✨', '⭐', '💛'], 40);
             } else if (tabName === 'cadeau') {
-                // Fond chaud et festif
-                document.body.style.background = "linear-gradient(135deg, #fff0f3, #ffe5ec)";
-            } else if (tabName === 'cartes') {
-                document.body.style.background = "linear-gradient(135deg, #ffe5ec, #ffc2d1)";
-            } else {
-                document.body.style.background = "linear-gradient(135deg, #ffe5ec, #ffc2d1)";
+                triggerShower(['🎁', '🌸', '💖', '⭐'], 45);
+            } else if (tabName === 'bons') {
+                triggerShower(['🎟️', '💝', '✨'], 30);
             }
         }
 
-        // 2. Gestion de l'erreur si l'image "diplome.png" est absente
-        function handleImageError() {
-            // Masque l'image manquante et affiche le magnifique diplôme générique en CSS
-            document.getElementById('diploma-img').style.display = 'none';
-            document.getElementById('fallback-diploma').style.display = 'flex';
-        }
-
-        // 3. Gestion de l'erreur si l'image "cadeau.jpg" est absente (affiche une jolie boîte générique)
-        function handleGiftImageError() {
-            const giftImg = document.getElementById('gift-img');
-            if (giftImg) {
-                // Remplace par une belle illustration de cadeau par défaut
-                giftImg.src = "https://placehold.co/600x600/ffe5ec/fb6f92?text=Un+Merveilleux+Cadeau+❤️";
+        // Retourner les 5 petites cartes
+        function flipCard(element) {
+            element.classList.toggle('flipped');
+            if(element.classList.contains('flipped')) {
+                triggerShower(['✨', '💖', '🌸'], 10);
             }
         }
 
-        // 4. Fonction pour retourner une carte flip (onglet 2)
-        function flipCard(cardElement) {
-            cardElement.classList.toggle('flipped');
-        }
-
-        // 5. Fonction spécifique pour retourner la grosse carte cadeau (avec confettis)
-        function flipGiftCard(cardElement) {
-            const wasFlipped = cardElement.classList.contains('flipped');
-            cardElement.classList.toggle('flipped');
-            
-            // Si la carte s'ouvre, on déclenche une énorme pluie de fête !
-            if (!wasFlipped) {
-                setTimeout(() => {
-                    triggerGrandFinale();
-                }, 200);
-                setTimeout(() => {
-                    triggerGrandFinale();
-                }, 600);
+        // Retourner la grosse carte cadeau
+        function flipBigCard(element) {
+            element.classList.toggle('flipped');
+            if(element.classList.contains('flipped')) {
+                // Pluie festive géante !
+                triggerShower(['🎉', '✨', '💖', '💝', '🌸', '🥳'], 80);
             }
         }
 
-        // 6. Générateur de particules (Cœurs et Étoiles dorées)
-        function createParticle(symbol, customClass) {
+        // Utiliser un bon cadeau
+        function useCoupon(button) {
+            const card = button.closest('.coupon-card');
+            if (!card.classList.contains('used')) {
+                card.classList.add('used');
+                button.textContent = "Validé ! 💝";
+                triggerShower(['🎉', '💖', '✨', '🌸'], 40);
+            }
+        }
+
+        // Générateur de pluie d'emojis
+        function triggerShower(emojiArray, count) {
             const container = document.getElementById('hearts-box');
-            if (!container) return;
-            
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            if (customClass) particle.classList.add(customClass);
-            
-            particle.innerText = symbol;
-            particle.style.left = Math.random() * 100 + 'vw';
-            particle.style.animationDuration = Math.random() * 3 + 2 + 's';
-            particle.style.fontSize = Math.random() * 15 + 15 + 'px';
-            
-            // Légère rotation aléatoire au départ
-            particle.style.transform = `rotate(${Math.random() * 360}deg)`;
-            
-            container.appendChild(particle);
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Prendre un emoji au hasard dans la liste fournie
+                const randomEmoji = emojiArray[Math.floor(Math.random() * emojiArray.length)];
+                particle.innerText = randomEmoji;
+                
+                // Position aléatoire sur l'écran
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = -Math.random() * 20 - 20 + 'px';
+                
+                // Vitesse et taille de l'animation aléatoires
+                particle.style.animationDuration = Math.random() * 2.5 + 1.5 + 's';
+                particle.style.fontSize = Math.random() * 15 + 15 + 'px';
+                
+                container.appendChild(particle);
 
-            // Supprimer la particule après la fin de sa chute
-            setTimeout(() => {
-                particle.remove();
-            }, 5000);
-        }
-
-        // Lance la création continue de cœurs ou d'étoiles selon l'onglet
-        setInterval(() => {
-            if (activeTab === 'diplome' || activeTab === 'cadeau') {
-                const goldSymbols = ['⭐', '✨', '💛', '🌟', '🎉', '🎁'];
-                const randomSymbol = goldSymbols[Math.floor(Math.random() * goldSymbols.length)];
-                createParticle(randomSymbol);
-            } else {
-                createParticle('❤️');
-            }
-        }, 400);
-
-        // 7. La Grande Finale de confettis/étoiles
-        function triggerGrandFinale() {
-            const goldSymbols = ['⭐', '✨', '💛', '🌟', '🎉', '👑', '💖', '🎁'];
-            // Génère instantanément 40 particules dorées et festives !
-            for (let i = 0; i < 40; i++) {
+                // Nettoyer après l'animation
                 setTimeout(() => {
-                    const randomSymbol = goldSymbols[Math.floor(Math.random() * goldSymbols.length)];
-                    createParticle(randomSymbol);
-                }, i * 60);
+                    particle.remove();
+                }, 4000);
             }
         }
+
+        // Pluie douce et continue de cœurs en arrière-plan de l'accueil
+        function createSlowHeart() {
+            const container = document.getElementById('hearts-box');
+            const heart = document.createElement('div');
+            heart.classList.add('particle');
+            heart.innerText = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '-30px';
+            heart.style.animationDuration = Math.random() * 4 + 3 + 's';
+            heart.style.fontSize = Math.random() * 8 + 12 + 'px';
+            heart.style.opacity = '0.5';
+            container.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 7000);
+        }
+        setInterval(createSlowHeart, 600);
     </script>
 </body>
 </html>
-                                                                                                        Fait par Alexandre SPILEERS le : 29/05/2026 pour Sabrina pour la fêtes des mères
+                                                                                                    Fait par Alexandre SPILEERS le : 29/05/2026 pour Sabrina pour la fête des mères
