@@ -808,7 +808,7 @@
             </div>
         </div>
 
-<!-- ==========================================
+        <!-- ==========================================
              ONGLET 3 : LE DIPLÔME DE SUPER MAMAN
              ========================================== -->
         <div id="tab-diplome" class="tab-content">
@@ -896,7 +896,7 @@
                         <div class="big-card-back">
                             <div class="gift-img-frame">
                                 <!-- Tu pourras remplacer "cadeau.jpg" ci-dessous par l'adresse de ton image -->
-                                <img class="actual-gift-img" src="https://www.cdiscount.com/pdt2/1/0/0/1/700x700/dys5025155028100/rw/dyson-big-ball-parquet-2-aspirateur-traineau-san.jpg" alt="Ton Cadeau !" onerror="this.src='https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1000&auto=format&fit=crop';">
+                                <img class="actual-gift-img" src="cadeau.jpg" alt="Ton Cadeau !" onerror="this.src='https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1000&auto=format&fit=crop';">
                             </div>
                             <p class="gift-caption">Joyeuse Fête des Mères ! ❤️</p>
                         </div>
@@ -909,7 +909,7 @@
     </main>
 
     <footer>
-        <p>Fait avec amour par ton fils qui t'aime en 2026 ✨</p>
+        <p>Fait avec amour par ton enfant en 2026 ✨</p>
     </footer>
 
     <!-- Scripts pour l'interactivité -->
@@ -1012,7 +1012,46 @@
             }, 7000);
         }
         setInterval(createSlowHeart, 600);
+
+        // Fonction pour lancer une pluie de confettis magique multicolore
+        function triggerConfettiShower() {
+            const colors = ['#fb6f92', '#ff8fab', '#ffc2d1', '#ffe5ec', '#ffd166', '#4cc9f0', '#d4af37'];
+            for (let i = 0; i < 70; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'fixed';
+                    confetti.style.zIndex = '9999';
+                    confetti.style.width = Math.random() * 8 + 6 + 'px';
+                    confetti.style.height = Math.random() * 15 + 8 + 'px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-20px';
+                    confetti.style.borderRadius = '3px';
+                    confetti.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+                    confetti.style.pointerEvents = 'none';
+                    
+                    // Physique de chute réaliste
+                    const speedY = Math.random() * 4 + 4;
+                    const speedX = Math.random() * 4 - 2;
+                    let currentY = -20;
+                    let currentX = parseFloat(confetti.style.left);
+                    
+                    document.body.appendChild(confetti);
+                    
+                    const interval = setInterval(() => {
+                        currentY += speedY;
+                        currentX += speedX;
+                        confetti.style.top = currentY + 'px';
+                        confetti.style.left = currentX + 'vw';
+                        
+                        if (currentY > window.innerHeight) {
+                            clearInterval(interval);
+                            confetti.remove();
+                        }
+                    }, 20);
+                }, Math.random() * 800);
+            }
+        }
     </script>
 </body>
 </html>
-                                                                                                    Fait par Alexandre SPILEERS le : 29/05/2026 pour Sabrina pour la fête des mères
